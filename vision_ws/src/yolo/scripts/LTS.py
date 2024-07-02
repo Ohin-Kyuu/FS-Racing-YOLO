@@ -19,8 +19,14 @@ import time
 import threading
 
 # Define variables
-WEIGHT_PATH = "src/yolo/weight/new_cb_fp16.engine"
+WEIGHT_PATH = "src/yolo/weight/10ep.pt"
 VERBOSE = False  # YOLO verbose (showing detection output)
+
+# Camera intrinsic parameters
+FOCAL_LENGTH = 4 # mm
+SENSOR_HEIGHT = 3.45e-3 # mm
+# Cone length
+CONE_LEN = 0.3 # m
 
 def log_same_line():
     while not rospy.is_shutdown():
@@ -48,20 +54,18 @@ class Node:
 
         ### Publisher ###
         # GUI Publisher
-        self.yolo_result_pub = rospy.Publisher("/cbcam/objects/yolo_result", Image, queue_size=10)
+        self.yolo_result_pub = rospy.Publisher("/yolo/objects/yolo_result", Image, queue_size=10)
         # Camera Point Publisher
-        self.world_point_array_pub = rospy.Publisher("/cbcam/objects/world_point_array", Float32MultiArray, queue_size=10)
+        self.world_point_array_pub = rospy.Publisher("/yolo/objects/world_point_array", Float32MultiArray, queue_size=10)
         self.world_points = []
 
         self.camera_point = PointStamped()
-        self.camera_point.header.frame_id = "realsense_camera"
+        self.camera_point.header.frame_id = "tiscamera"
         self.camera_point.header.stamp = rospy.Time.now()
 
         ### Subscriber ###
         self.col1_msg = None
-        self.dep1_msg = None
-        self.sub_col1 = rospy.Subscriber("/cbcam/color/image_raw", Image, self.col_callback1)
-        self.sub_dep1 = rospy.Subscriber("/cbcam/aligned_depth_to_color/image_raw", Image, self.dep_callback1)
+        self.sub_col1 = rospy.Subscriber("/usb_cam/image_raw", Image, self.col_callback1)
 
         ### Other tools ###
         # CvBridge
@@ -73,24 +77,16 @@ class Node:
     def col_callback1(self, msg):
         self.col1_msg = msg
 
-    def dep_callback1(self, msg):
-        self.dep1_msg = msg
-
-    def preprocess(self, col1_msg: Image, dep1_msg: Image) -> np.ndarray:
+    def preprocess(self, col1_msg: Image) -> np.ndarray:
         # Convert col_msg
         cv_col1_img = self.bridge.imgmsg_to_cv2(col1_msg, desired_encoding="bgr8")
         np_col1_img = np.asanyarray(cv_col1_img, dtype=np.uint8)
-
-        # Convert dep_msg
-        cv_dep1_img = self.bridge.imgmsg_to_cv2(dep1_msg, desired_encoding="passthrough")
-        np_dep1_img = np.asanyarray(cv_dep1_img, dtype=np.uint16)
-
-        return np_col1_img, np_dep1_img
+        return np_col1_img
 
     def yolo(self):
         while rospy.is_shutdown() is False:
-            if self.col1_msg is not None and self.dep1_msg is not None:
-                color_img, depth_img = self.preprocess(self.col1_msg, self.dep1_msg)
+            if self.col1_msg is not None:
+                color_img = self.preprocess(self.col1_msg)
 
                 # YOLO detection
                 results = self.model.predict(source=color_img, verbose=VERBOSE)
@@ -102,7 +98,8 @@ class Node:
                     for box in boxes:
                         x1, y1, x2, y2 = map(int, box.xyxy[0])
                         pixel_x, pixel_y = round((x1 + x2) / 2), round((y1 + y2) / 2)
-                        depth = depth_img[pixel_y, pixel_x]
+                        depth = CONE_LEN/((y2 - y1) * SENSOR_HEIGHT) * FOCAL_LENGTH
+                        
                         # Transform coordinates
                         world_x, world_y = self.transform_coordinates(pixel_x, pixel_y, depth)
 
@@ -117,15 +114,15 @@ class Node:
                     self.yolo_thread_started = True
 
     def transform_coordinates(self, x, y, depth):
-        self.camera_point.point.x = (depth * (x - 436.413) / 604.357) / 1000
-        self.camera_point.point.y = (depth * (y - 245.459) / 604.063) / 1000
-        self.camera_point.point.z = depth / 1000
+        self.camera_point.point.x = (depth * (x - 321.72626) / 1170.47874)
+        self.camera_point.point.y = (depth * (y - 242.67215) / 1170.85504)
+        self.camera_point.point.z = depth
         self.camera_point.header.stamp = rospy.Time.now()
 
         try:
-            self.tf_buffer.can_transform('map', 'realsense_camera', rospy.Time(0), rospy.Duration(1.0))
+            self.tf_buffer.can_transform('map', 'tiscamera', rospy.Time(0), rospy.Duration(1.0))
             world_point = tf2_geometry_msgs.do_transform_point(self.camera_point,
-                                                               self.tf_buffer.lookup_transform('map', 'realsense_camera',
+                                                               self.tf_buffer.lookup_transform('map', 'tiscamera',
                                                                                                 rospy.Time(0)))
             return world_point.point.x, world_point.point.y
 
@@ -156,7 +153,7 @@ class Node:
 if __name__ == '__main__':
     try:
         vision_node = Node()
-        rospy.loginfo("Starting CB detection...")
+        rospy.loginfo("Starting YOLO detection...")
         vision_node.yolo()
         rospy.spin()
 

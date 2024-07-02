@@ -1,11 +1,5 @@
 <launch>
     <node pkg="yolo" type="tf_broadcaster" name="tf_broadcaster"
-        args="0.225 1.13 1.44 -143 3 160 map realsense_camera 10"/> 
-
-    <node pkg="yolo" type="six_region_marker" name="six_region_marker"/>
-    <node pkg="yolo" type="six_region_map" name="six_region_map"/>
-    <node pkg="yolo" type="six_region_info" name="six_region_info"/>
-    
-    <!--rviz -->
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find yolo)/rviz/Marker.rviz" />
+        args="0 0 0 0 0 0 map tiscamera 10"/> 
+     <node pkg="yolo" type="cone_marker" name="cone_marker"/>
 </launch>

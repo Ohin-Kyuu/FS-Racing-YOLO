@@ -7,7 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/ws/vision_ws/devel:$CMAKE_PREFIX_PATH"
 export PWD='/home/ws/vision_ws/build'
-export ROSLISP_PACKAGE_DIRECTORIES="/home/ws/vision_ws/devel/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
-export ROS_PACKAGE_PATH="/home/ws/vision_ws/src:$ROS_PACKAGE_PATH"

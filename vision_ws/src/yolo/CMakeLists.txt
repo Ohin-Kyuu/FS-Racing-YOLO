@@ -198,14 +198,9 @@ include_directories(
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
 
-add_executable(six_region_marker src/six_region_marker.cpp)
-target_link_libraries(six_region_marker ${catkin_LIBRARIES})
+add_executable(cone_marker src/cone_marker.cpp)
+target_link_libraries(cone_marker ${catkin_LIBRARIES})
 
-add_executable(six_region_map src/six_region_map.cpp)
-target_link_libraries(six_region_map ${catkin_LIBRARIES})
-
-add_executable(six_region_info src/six_region_info.cpp)
-target_link_libraries(six_region_info ${catkin_LIBRARIES})
 #############
 ## Testing ##
 #############
