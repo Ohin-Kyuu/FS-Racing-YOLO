@@ -8,4 +8,4 @@ sleep 3
 
 rosrun camera_dynamic dynamic_reconfigure_node &
 sleep 3
-rosrun rqt_reconfigure rqt_reconfigure
+rosrun rqt_reconfigure rqt_reconfigure &
