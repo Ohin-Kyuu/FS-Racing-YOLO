@@ -1,3 +1,7 @@
+file(REMOVE_RECURSE
+  "/home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h"
+  "CMakeFiles/yolo_generate_messages_cpp"
+)
 
 # Per-language clean rules from dependency scanning.
 foreach(lang )

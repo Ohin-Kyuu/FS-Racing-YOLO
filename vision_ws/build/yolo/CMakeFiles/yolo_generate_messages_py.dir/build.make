@@ -53,6 +53,23 @@ CMAKE_BINARY_DIR = /home/ws/vision_ws/build
 # Include the progress variables for this target.
 include yolo/CMakeFiles/yolo_generate_messages_py.dir/progress.make
 
+yolo/CMakeFiles/yolo_generate_messages_py: /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/_LabeledPointArray.py
+yolo/CMakeFiles/yolo_generate_messages_py: /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/__init__.py
+
+
+/home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/_LabeledPointArray.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/_LabeledPointArray.py: /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG yolo/LabeledPointArray"
+	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg -Iyolo:/home/ws/vision_ws/src/yolo/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p yolo -o /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg
+
+/home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/__init__.py: /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/_LabeledPointArray.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for yolo"
+	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg --initpy
+
+yolo_generate_messages_py: yolo/CMakeFiles/yolo_generate_messages_py
+yolo_generate_messages_py: /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/_LabeledPointArray.py
+yolo_generate_messages_py: /home/ws/vision_ws/devel/lib/python3/dist-packages/yolo/msg/__init__.py
 yolo_generate_messages_py: yolo/CMakeFiles/yolo_generate_messages_py.dir/build.make
 
 .PHONY : yolo_generate_messages_py

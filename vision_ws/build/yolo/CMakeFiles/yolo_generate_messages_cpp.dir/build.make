@@ -53,6 +53,17 @@ CMAKE_BINARY_DIR = /home/ws/vision_ws/build
 # Include the progress variables for this target.
 include yolo/CMakeFiles/yolo_generate_messages_cpp.dir/progress.make
 
+yolo/CMakeFiles/yolo_generate_messages_cpp: /home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h
+
+
+/home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h: /opt/ros/noetic/lib/gencpp/gen_cpp.py
+/home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h: /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg
+/home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h: /opt/ros/noetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from yolo/LabeledPointArray.msg"
+	cd /home/ws/vision_ws/src/yolo && /home/ws/vision_ws/build/catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg -Iyolo:/home/ws/vision_ws/src/yolo/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p yolo -o /home/ws/vision_ws/devel/include/yolo -e /opt/ros/noetic/share/gencpp/cmake/..
+
+yolo_generate_messages_cpp: yolo/CMakeFiles/yolo_generate_messages_cpp
+yolo_generate_messages_cpp: /home/ws/vision_ws/devel/include/yolo/LabeledPointArray.h
 yolo_generate_messages_cpp: yolo/CMakeFiles/yolo_generate_messages_cpp.dir/build.make
 
 .PHONY : yolo_generate_messages_cpp

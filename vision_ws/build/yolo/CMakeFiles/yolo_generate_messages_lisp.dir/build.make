@@ -53,6 +53,16 @@ CMAKE_BINARY_DIR = /home/ws/vision_ws/build
 # Include the progress variables for this target.
 include yolo/CMakeFiles/yolo_generate_messages_lisp.dir/progress.make
 
+yolo/CMakeFiles/yolo_generate_messages_lisp: /home/ws/vision_ws/devel/share/common-lisp/ros/yolo/msg/LabeledPointArray.lisp
+
+
+/home/ws/vision_ws/devel/share/common-lisp/ros/yolo/msg/LabeledPointArray.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
+/home/ws/vision_ws/devel/share/common-lisp/ros/yolo/msg/LabeledPointArray.lisp: /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from yolo/LabeledPointArray.msg"
+	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg -Iyolo:/home/ws/vision_ws/src/yolo/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p yolo -o /home/ws/vision_ws/devel/share/common-lisp/ros/yolo/msg
+
+yolo_generate_messages_lisp: yolo/CMakeFiles/yolo_generate_messages_lisp
+yolo_generate_messages_lisp: /home/ws/vision_ws/devel/share/common-lisp/ros/yolo/msg/LabeledPointArray.lisp
 yolo_generate_messages_lisp: yolo/CMakeFiles/yolo_generate_messages_lisp.dir/build.make
 
 .PHONY : yolo_generate_messages_lisp

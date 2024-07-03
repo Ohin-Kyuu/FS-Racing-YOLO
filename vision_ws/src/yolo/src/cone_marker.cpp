@@ -3,7 +3,7 @@
 #include "geometry_msgs/PointStamped.h"
 #include "visualization_msgs/Marker.h"
 #include "visualization_msgs/MarkerArray.h"
-#include "std_msgs/Float32MultiArray.h"
+#include "yolo/LabeledPointArray.h"  // Assuming this is your custom message type
 #include <cmath>
 #include <chrono>
 #include <vector>
@@ -16,34 +16,47 @@ public:
         pub = nh.advertise<visualization_msgs::MarkerArray>("/yolo/objects/cone_marker", 10);
     }
 
-    void pointCallback(const std_msgs::Float32MultiArray::ConstPtr& msg) {
+    void pointCallback(const yolo::LabeledPointArray::ConstPtr& msg) {
         markerArray.markers.clear();
 
-        std::vector<geometry_msgs::Point> world_points;
-        for (size_t i = 0; i < msg->data.size(); i += 3) {
-            geometry_msgs::Point point;
-            point.x = msg->data[i];
-            point.y = msg->data[i + 1];
-            point.z = msg->data[i + 2];
-            world_points.push_back(point);
-        }
+        std::vector<std::string> labels = msg->labels;
+        std::vector<float> x_values = msg->x;
+        std::vector<float> y_values = msg->y;
+        std::vector<float> z_values = msg->z;
 
-        // Publish the markers for visualization
-        for (size_t i = 0; i < world_points.size(); ++i) {
+        // Publish markers for visualization
+        for (size_t i = 0; i < labels.size(); ++i) {
             visualization_msgs::Marker marker;
             marker.header.frame_id = "map";
             marker.header.stamp = ros::Time::now();
             marker.ns = "world_points";
             marker.id = i;
-            marker.type = visualization_msgs::Marker::SPHERE;
+            marker.type = visualization_msgs::Marker::CYLINDER;
             marker.action = visualization_msgs::Marker::ADD;
-            marker.pose.position = world_points[i];
+            marker.pose.position.x = x_values[i];
+            marker.pose.position.y = y_values[i];
+            marker.pose.position.z = z_values[i];
             marker.pose.orientation.w = 1.0;
-            marker.scale.x = marker.scale.y = marker.scale.z = 0.1;
-            marker.color.r = 1.0;
-            marker.color.g = 0.0;
-            marker.color.b = 0.0;
+            marker.scale.x = 0.15;  // Diameter of the cylinder
+            marker.scale.y = 0.15;  // Diameter of the cylinder
+            marker.scale.z = 0.3;  // Height of the cylinder
+            marker.lifetime = ros::Duration(0.1);
+            
+            if (labels[i] == "yellow_cone") {
+                marker.color.r = 1.0;
+                marker.color.g = 1.0;
+                marker.color.b = 0.0;  // Yellow
+            } else if (labels[i] == "blue_cone") {
+                marker.color.r = 0.0;
+                marker.color.g = 0.0;
+                marker.color.b = 1.0;  // Blue
+            } else {
+                marker.color.r = 1.0;
+                marker.color.g = 0.0;
+                marker.color.b = 0.0;  // Red
+            }
             marker.color.a = 1.0;
+
             markerArray.markers.push_back(marker);
         }
 

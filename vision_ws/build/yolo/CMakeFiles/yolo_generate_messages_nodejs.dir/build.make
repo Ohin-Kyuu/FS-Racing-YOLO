@@ -53,6 +53,16 @@ CMAKE_BINARY_DIR = /home/ws/vision_ws/build
 # Include the progress variables for this target.
 include yolo/CMakeFiles/yolo_generate_messages_nodejs.dir/progress.make
 
+yolo/CMakeFiles/yolo_generate_messages_nodejs: /home/ws/vision_ws/devel/share/gennodejs/ros/yolo/msg/LabeledPointArray.js
+
+
+/home/ws/vision_ws/devel/share/gennodejs/ros/yolo/msg/LabeledPointArray.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/ws/vision_ws/devel/share/gennodejs/ros/yolo/msg/LabeledPointArray.js: /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from yolo/LabeledPointArray.msg"
+	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg -Iyolo:/home/ws/vision_ws/src/yolo/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p yolo -o /home/ws/vision_ws/devel/share/gennodejs/ros/yolo/msg
+
+yolo_generate_messages_nodejs: yolo/CMakeFiles/yolo_generate_messages_nodejs
+yolo_generate_messages_nodejs: /home/ws/vision_ws/devel/share/gennodejs/ros/yolo/msg/LabeledPointArray.js
 yolo_generate_messages_nodejs: yolo/CMakeFiles/yolo_generate_messages_nodejs.dir/build.make
 
 .PHONY : yolo_generate_messages_nodejs

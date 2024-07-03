@@ -53,14 +53,21 @@ CMAKE_BINARY_DIR = /home/ws/vision_ws/build
 # Include the progress variables for this target.
 include yolo/CMakeFiles/yolo_generate_messages_eus.dir/progress.make
 
+yolo/CMakeFiles/yolo_generate_messages_eus: /home/ws/vision_ws/devel/share/roseus/ros/yolo/msg/LabeledPointArray.l
 yolo/CMakeFiles/yolo_generate_messages_eus: /home/ws/vision_ws/devel/share/roseus/ros/yolo/manifest.l
 
 
+/home/ws/vision_ws/devel/share/roseus/ros/yolo/msg/LabeledPointArray.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/ws/vision_ws/devel/share/roseus/ros/yolo/msg/LabeledPointArray.l: /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from yolo/LabeledPointArray.msg"
+	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ws/vision_ws/src/yolo/msg/LabeledPointArray.msg -Iyolo:/home/ws/vision_ws/src/yolo/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p yolo -o /home/ws/vision_ws/devel/share/roseus/ros/yolo/msg
+
 /home/ws/vision_ws/devel/share/roseus/ros/yolo/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp manifest code for yolo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ws/vision_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for yolo"
 	cd /home/ws/vision_ws/build/yolo && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/ws/vision_ws/devel/share/roseus/ros/yolo yolo std_msgs
 
 yolo_generate_messages_eus: yolo/CMakeFiles/yolo_generate_messages_eus
+yolo_generate_messages_eus: /home/ws/vision_ws/devel/share/roseus/ros/yolo/msg/LabeledPointArray.l
 yolo_generate_messages_eus: /home/ws/vision_ws/devel/share/roseus/ros/yolo/manifest.l
 yolo_generate_messages_eus: yolo/CMakeFiles/yolo_generate_messages_eus.dir/build.make
 
