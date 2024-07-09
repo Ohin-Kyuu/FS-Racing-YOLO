@@ -3,7 +3,7 @@
 #include "geometry_msgs/PointStamped.h"
 #include "visualization_msgs/Marker.h"
 #include "visualization_msgs/MarkerArray.h"
-#include "yolo/LabeledPointArray.h"  // Assuming this is your custom message type
+#include "yolo/LabeledPointArray.h"
 #include <cmath>
 #include <chrono>
 #include <vector>
@@ -31,15 +31,20 @@ public:
             marker.header.stamp = ros::Time::now();
             marker.ns = "world_points";
             marker.id = i;
-            marker.type = visualization_msgs::Marker::CYLINDER;
+            marker.type = visualization_msgs::Marker::MESH_RESOURCE;
+            marker.mesh_resource = "package://yolo/meshes/cone.stl";
             marker.action = visualization_msgs::Marker::ADD;
             marker.pose.position.x = x_values[i];
             marker.pose.position.y = y_values[i];
             marker.pose.position.z = z_values[i];
+            marker.pose.orientation.x = 0.0;
+            marker.pose.orientation.y = 0.0;
+            marker.pose.orientation.z = 0.0;
             marker.pose.orientation.w = 1.0;
-            marker.scale.x = 0.15;  // Diameter of the cylinder
-            marker.scale.y = 0.15;  // Diameter of the cylinder
-            marker.scale.z = 0.3;  // Height of the cylinder
+            marker.scale.x = 0.001;
+            marker.scale.y = 0.001;
+            marker.scale.z = 0.001;
+            marker.color.a = 1.0;
             marker.lifetime = ros::Duration(0.1);
             
             if (labels[i] == "yellow_cone") {
@@ -55,8 +60,7 @@ public:
                 marker.color.g = 0.0;
                 marker.color.b = 0.0;  // Red
             }
-            marker.color.a = 1.0;
-
+            
             markerArray.markers.push_back(marker);
         }
 
